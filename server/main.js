@@ -24,7 +24,6 @@ app.use(convert(koaBody({formidable:{uploadDir: '/tmp'}, multipart: true})));
 app.use(convert(function*loggerAsync(next) {
 	let now = new Date();
 	this.orig_path = this.path;
-	this.orig_query = objectAssign({}, this.query);
 
 	try {
 		yield next;
@@ -41,7 +40,6 @@ app.use(convert(function*loggerAsync(next) {
 				'path': this.path,
 				'orig_path': this.orig_path,
 				'query': this.query,
-				'orig_query': this.orig_query,
 				'search': this.search,
 				'body': this.request.body,
 				'agent': this.request.get('user-agent'),
@@ -50,7 +48,6 @@ app.use(convert(function*loggerAsync(next) {
 				'ips': this.ips,
 				'x-real-ip': this.request.get('x-real-ip'),
 				'sid': this.cookies.get('www_sid')||'',
-				'user': this.xuser?this.xuser.user_id:'not_login',
 				'referer': this.request.get('referer'),
 			},
 			'res': {
@@ -133,5 +130,6 @@ wss.on('connection', function(ws){
 	
 })
 */
+
 app.listen(10000)
 logger.info('Listen on port: 10000');
