@@ -79,7 +79,7 @@ app.use(convert(function*routeAsync(next){
 	}
 
     if(path == '/') path = '/index';
-	let actionFn = './action' + path + '.js';
+	let actionFn = './api' + path + '.js';
 	if(!fs.existsSync(actionFn)) {
 		yield next;
 		return;
